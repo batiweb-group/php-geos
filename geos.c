@@ -345,6 +345,10 @@ PHP_METHOD(Geometry, isEmpty);
 PHP_METHOD(Geometry, checkValidity);
 #endif
 
+#ifdef HAVE_GEOS_IS_MAKE_VALID
+PHP_METHOD(Geometry, makeValid);
+#endif
+
 PHP_METHOD(Geometry, isSimple);
 PHP_METHOD(Geometry, isRing);
 PHP_METHOD(Geometry, hasZ);
@@ -482,6 +486,10 @@ static zend_function_entry Geometry_methods[] = {
 
 #   ifdef HAVE_GEOS_IS_VALID_DETAIL
     PHP_ME(Geometry, checkValidity, NULL, 0)
+#   endif
+
+#   ifdef HAVE_GEOS_IS_MAKE_VALID
+    PHP_ME(Geometry, makeValid, NULL, 0)
 #   endif
 
     PHP_ME(Geometry, isSimple, NULL, 0)
@@ -1773,6 +1781,26 @@ PHP_METHOD(Geometry, checkValidity)
     if ( reasonVal ) GEOS_PHP_ADD_ASSOC_ARRAY(return_value, "reason", reasonVal);
     if ( locationVal ) GEOS_PHP_ADD_ASSOC_ZVAL(return_value, "location", locationVal);
 
+}
+#endif
+
+/**
+ * GEOSGeometry GEOSGeometry::makeValid()
+ */
+#ifdef HAVE_GEOS_IS_MAKE_VALID
+PHP_METHOD(Geometry, makeValid)
+{
+    GEOSGeometry *this;
+    GEOSGeometry *ret;
+
+    this = (GEOSGeometry*)getRelay(getThis(), Geometry_ce_ptr);
+
+    ret = GEOSMakeValid_r(GEOS_G(handle), this);
+    if ( ! ret ) RETURN_NULL();
+
+    /* return_value is a zval */
+    object_init_ex(return_value, Geometry_ce_ptr);
+    setRelay(return_value, ret);
 }
 #endif
 

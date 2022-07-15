@@ -73,6 +73,7 @@ if test "$PHP_GEOS" != "no"; then
   AC_CHECK_LIB(geos_c, GEOSVoronoiDiagram_r, AC_DEFINE(HAVE_GEOS_VORONOI_DIAGRAM,1,[Whether we have GEOSVoronoiDiagram_r]))
   AC_CHECK_LIB(geos_c, GEOSisClosed_r, AC_DEFINE(HAVE_GEOS_IS_CLOSED,1,[Whether we have GEOSisClosed_r]))
   AC_CHECK_LIB(geos_c, GEOSisValidDetail_r, AC_DEFINE(HAVE_GEOS_IS_VALID_DETAIL,1,[Whether we have GEOSisValidDetail_r]))
+  AC_CHECK_LIB(geos_c, GEOSMakeValid_r, AC_DEFINE(HAVE_GEOS_IS_MAKE_VALID,1,[Whether we have GEOSMakeValid_r]))
   AC_CHECK_LIB(geos_c, GEOSGeom_setPrecision_r, AC_DEFINE(HAVE_GEOS_GEOM_SET_PRECISION,1,[Whether we have GEOSGeom_setPrecision_r]))
   AC_CHECK_LIB(geos_c, GEOSGeom_getPrecision_r, AC_DEFINE(HAVE_GEOS_GEOM_GET_PRECISION,1,[Whether we have GEOSGeom_getPrecision_r]))
 
